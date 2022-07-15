@@ -1,0 +1,97 @@
+<?php
+
+namespace App\Exports;
+
+{{ model }}
+use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\WithMapping;
+use Maatwebsite\Excel\Concerns\WithEvents;
+use Maatwebsite\Excel\Events\AfterSheet;
+use Maatwebsite\Excel\Concerns\RegistersEventListeners;
+use Maatwebsite\Excel\Concerns\WithCustomStartCell;
+use PhpOffice\PhpSpreadsheet\Cell\Coordinate;
+class {{ className }} implements FromCollection,WithHeadings,WithMapping,WithEvents,WithCustomStartCell
+{
+    /**
+    * @return \Illuminate\Support\Collection
+    */
+    use RegistersEventListeners;
+
+    {{ properties }}
+    public $stt = 0;
+    protected $countRow = 0;
+
+    public function __construct({{ constructData }}){
+        {{ initDataContruct }}
+    }
+
+    public function collection()
+    {
+        ini_set('memory_limit', '-1');
+        set_time_limit(0);
+
+        {{ queryExport }}
+        $this->countRow = count($query);
+        return $query;
+    }
+
+    public function headings(): array {
+        return [
+            {{ headingExport }}
+        ];
+    }
+    public function map($data): array {
+        return [
+            {{ mapExport }}
+        ];
+    }
+    public function registerEvents(): array
+    {
+        return [
+            AfterSheet::class => function(AfterSheet $event) {
+                // style start
+                $default_font_style = [
+                    'font' => ['name' => 'Times New Roman', 'size' => 12]
+                ];
+
+                $default_font_style2 = [
+                    'font' => ['name' => 'Times New Roman', 'size' => 12],
+                    'borders' => [
+                        'allBorders' => [
+                            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                            'color' => ['argb' => '00000000'],
+                        ],
+                    ],
+                ];
+                $default_font_style_title = [
+                    'font' => ['name' => 'Times New Roman', 'size' => 12, 'bold' =>  true],
+                    'fill' => [
+                        'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_GRADIENT_LINEAR,
+                        'startColor' => [
+                            'argb' => 'B7DEE8',
+                        ],
+                        'endColor' => [
+                            'argb' => 'B7DEE8',
+                        ],
+                    ],
+                    'borders' => [
+                        'allBorders' => [
+                            'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+                            'color' => ['argb' => '00000000'],
+                        ],
+                    ],
+                ];
+                $default_font_style_title2 = [
+                    'font' => ['name' => 'Times New Roman', 'size' => 14, 'bold' =>  true],
+                ];
+                // style end
+                {{ afterSheet }}
+            },
+        ];
+    }
+    public function startCell(): string
+    {
+        return {{ strartRow }};
+    }
+}

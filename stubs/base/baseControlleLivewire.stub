@@ -1,0 +1,108 @@
+<?php
+
+namespace {{ namespace }};
+
+{{ useclasses }}
+
+class {{ classNameLivewire }} extends BaseLive {
+
+    public $mode = 'create';
+    public $editId;
+    public $deleteId;
+    public $key_name='id', $sortingName='desc';
+    {{ properties }}
+
+    {{ rules }}
+    {{ messages }}
+
+    public $search;
+    {{ searchVar }}
+    public function mount(){
+        $this->perPage = 50;
+    }
+
+    public function render(){
+        $query = $this->getQuery();
+        $data = $query->orderBy($this->key_name,$this->sortingName)->paginate($this->perPage);
+        return view('livewire.admin.{{ blade }}', [
+            'data'=> $data,
+        ]);
+    }
+
+    public function getQuery(){
+        {{ query }}
+    }
+
+    public function updatedSearch(){
+        $this->resetPage();
+    }
+
+    public function resetValidate(){
+        {{ resetProperties }}
+    }
+
+    public function create (){
+        $this->mode = 'create';
+    }
+
+    public function saveData (){
+        $this->standardData();
+        $this->validate();
+        if($this->mode=='create'){
+            {{ storeData }}
+        }
+        else {
+            {{ updateData }}
+        }
+        $this->resetValidate();
+        if($this->mode=='create'){
+            $this->dispatchBrowserEvent('show-toast', ["type" => "success", "message" => 'Thêm mới thành công']);
+        }
+        else {
+            $this->dispatchBrowserEvent('show-toast', ["type" => "success", "message" => 'Chỉnh sửa thành công']);
+        }
+        $this->emit('closeModalCreateEdit');
+    }
+
+    public function edit($row){
+        $this->mode = 'update';
+        $this->editId = $row['id'];
+        {{ getDataEditToModal }}
+    }
+
+    {{ getDataShowToModal }}
+    
+    public function standardData(){
+        {{ standardData }}
+    }
+
+    public function delete(){
+        {{ destroyData }}
+        $this->dispatchBrowserEvent('show-toast', ["type" => "success", "message" => 'Xóa thành công']);
+    }
+
+    {{ functionDeleteAll }}
+    public function resetSearch(){
+        {{ resetSearch }}
+        $this->reset('key_name');
+        $this->reset('sortingName');
+    }
+
+    public function export(){
+        $today = date("d_m_Y");
+        {{ export }}
+    }
+
+    public function sorting($key){
+        if($this->key_name == $key){
+            $this->sortingName = $this->getSortName();
+        } else {
+            $this->sortingName ='desc';
+        }
+        $this->key_name = $key;
+    }
+    public function getSortName(){
+        return $this->sortingName == "desc" ? "asc" : "desc";
+    }
+    
+}

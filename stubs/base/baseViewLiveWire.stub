@@ -1,0 +1,123 @@
+<div class="body-content p-2">
+    <div class="p-2 pb-3 d-flex align-items-center justify-content-between">
+        <div class="">
+            <h4 class="m-0 ml-2">
+                {{ title }}
+            </h4>
+        </div>
+        <div class="paginate">
+            <div class="d-flex">
+                <div class="">
+                    <a href="{{ route('home') }}"><i class="fa fa-home"></i> Trang chủ</a>
+                </div>
+                <span class="px-2">/</span>
+                <div class="">
+                    <div class="disable">{{ title }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body p-2">
+            {{ searchInput }}
+            <div class="filter d-flex align-items-center justify-content-between mb-2">
+                <button type="button" class="btn btn-secondary" wire:click="resetSearch()"><i class="fa fa-undo"></i> Làm mới</button>
+                <div>
+                    <div style="float: left;text-align: center;">
+                        <a href="#" data-toggle="modal" data-target="#modelCreateEdit" wire:click='create'>
+                            <div class="btn btn-primary">
+                                <i class="fa fa-plus"></i> Tạo mới
+                            </div>
+                        </a>
+                    </div>
+                    <div style="margin-left:5px;float: left;text-align: center;">
+                        <a href="#" data-toggle="modal" data-target="#modelExport" wire:click='create'>
+                            <div class="btn btn-success">
+                                <i class="fa fa-download"></i> Export
+                            </div>
+                        </a>
+                    </div>
+                    {{ buttonDeleteAll }}
+                </div>
+            </div>
+
+            <div wire:loading class="loader"></div>
+            <table class="table table-bordered table-hover dataTable dtr-inline" role="grid" aria-describedby="example2_info">
+                <thead>
+                    <tr role='row'>
+                        {{ thDeleteAll }}
+                        <th>STT</th>
+                        {{ columnHeadTable }}
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach($data as $key => $row)
+                        <tr>
+                            {{ tdDeleteAll }}
+                            <td>{{($data->currentPage() - 1) * $data->perPage() + $loop->iteration}}</td>
+                            {{ columnBodyTable }}
+                            <td>
+                                {{ showButton }}
+                                <button type="button" data-toggle="modal" data-target="#modelCreateEdit"  class="btn par6" title="update" wire:click='edit({{$row}})'>
+                                    <img src="/images/pent2.svg" alt="pent">
+                                </button>
+                                @include('livewire.common.buttons._delete')
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            @if(!isset($data) || !count($data))
+                <div class="pb-2 pt-3 text-center">Không tìm thấy dữ liệu</div>
+            @endif
+        </div>
+        {{$data->links()}}
+    </div>
+    {{--Start modal--}}
+    <div wire:ignore.self class="modal fade" id="modelCreateEdit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{{ titleModal }}</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" wire:click="resetValidate()">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                {{ modalBodyLivewire }}
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" wire:click="resetValidate()">Đóng</button>
+                    {{ modalButtonSave }}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div wire:ignore.self class="modal fade" id="modelExport" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="exampleModalLabel">Tải file excel xuống</h4>
+                </div>
+                <div class="modal-body">
+                    Bạn có chắc chắn muốn xuất file không?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Quay lại</button>
+                    <button type="button" wire:click="export" class="btn btn-primary" data-dismiss="modal" id='btn-upload-film'>Đồng ý</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    @include('livewire.common._modalDelete')
+    @include('livewire.common.modal._modalDeleteAll')
+    {{--end modal--}}
+
+</div>
+
+<script>
+    $("document").ready(() => {
+        window.livewire.on('closeModalCreateEdit', () => {
+            $('#modelCreateEdit').modal('hide');
+        });
+    });
+</script>
