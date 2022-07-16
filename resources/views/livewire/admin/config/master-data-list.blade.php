@@ -89,7 +89,7 @@
                             <td>{{$row->number_value}}</td>
                             <td>
                                 @if(!empty($row->image))
-                                    <img src="{{url('storage/'.$row->image)}}" alt="" width="70px" height="70px">
+                                    <img src="{{url('./'.$row->image)}}" alt="" width="70px" height="70px">
                                     @else
                                         No image
                                     @endif

@@ -24,7 +24,16 @@
                     <div class="row">
                         <div class="col-4" >
                             <label class="col-form-label">Tìm kiếm</label>
-                            <input wire:model.debounce.1000ms="searchName" placeholder="Tìm kiếm ..." type="text" class="form-control">
+                            <input wire:model.debounce.1000ms="searchName" placeholder="Nhập từ khóa..." type="text" class="form-control">
+                        </div>
+                        <div class="col-3" >
+                            <label class="col-form-label">Loại tin tức</label>
+                            <select class='form-control' wire:model='searchCategory'>
+                                <option value="">--Chọn loại tin tức--</option>
+                                <option value="1">Tin phổ biến</option>
+                                <option value="2">Tin thường</option>
+                                <option value="3">Tin tức khác</option>
+                            </select>
                         </div>
                     </div>
                     <hr>
@@ -53,6 +62,8 @@
                         <th>Tiêu đề</th>
                         <th>Mô tả</th>
                         <th>Tác giả</th>
+                        <th>Loại tin tức</th>
+                        <th>Ngày đăng tin</th>
                         <th class='text-center'>Ảnh đại diện</th>
                         <th class='text-center w-120'>Hành động</th>
                     </tr>
@@ -60,12 +71,14 @@
                 <tbody>
                     @forelse ($newData as $key => $row)
                         <tr>
-                            <td class='text-center'>{{$key+1}}</td>
+                            <td class='text-center'>{{($newData->currentPage() - 1) * $newData->perPage() + $loop->iteration}}</td>
                             <td>{{strlen($row['name_vi']) > 80 ? mb_substr($row['name_vi'], 0, 80, 'UTF-8') . '...' : $row['name_vi']}}</td>
                             <td>
                                 {{ strlen($row['intro_vi']) > 80 ? mb_substr($row['intro_vi'], 0, 80, 'UTF-8') . '...' : $row['intro_vi']}}
                             </td>
                             <td>{{$row['author']}}</td>
+                            <td>{{$row->category=='1'?'Tin phổ biến':($row->category=='2'?'Tin thường':($row->category=='3'?'Tin tức khác':''))}}</td>
+                            <td>{{reFormatDate($row->date_submit)}}</td>
                             <td class='text-center'>
                                 @if($row['image'])
                                     <img src="{{$row['image']}}" width="60px"/>

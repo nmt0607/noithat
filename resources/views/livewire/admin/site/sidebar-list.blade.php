@@ -30,13 +30,32 @@
                         <p>Master data</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{route('admin.config.seoConfig')}}" class="nav-link {{setActive2('config/seo-config')}}">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Cấu hình SEO</p>
+                    </a>
+                </li>
             </ul>
         </li>
         <li class="nav-item">
             <a href="{{route('admin.news.index')}}" class="nav-link {{setActive2('news')}}">
-                <i class="far far fa-envelope nav-icon"></i>
+                <i class="nav-icon far far fa-envelope nav-icon"></i>
                 <p>Quản lý tin tức</p>
             </a>
         </li>
+        <li class="nav-item">
+            <a href="{{route('admin.faqs.index')}}" class="nav-link {{setActive2('faqs')}}">
+                <i class="nav-icon far fas fa-question"></i>
+                <p>Câu hỏi thường gặp</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{route('admin.files.index')}}" class="nav-link {{setActive2('files')}}">
+                <i class="nav-icon far fas fa-file"></i>
+                <p>Quản lý Files</p>
+            </a>
+        </li>
+
     </ul>
 </nav>

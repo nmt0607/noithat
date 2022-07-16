@@ -82,7 +82,7 @@
                       @if($image)
                           <div class="form_content ml-2 form-group preview-data" data="{{ './storage/'. $image }}">
                               <div class="py-2 px-3 bg-light d-flex align-items-center" id="preview-item">
-                                  <a href="{{ '/storage/'. $image }}" target="_blank">
+                                  <a href="{{ '/'. $image }}" target="_blank">
                                       <i class="fas fa-file mr-2"></i> {{$image}}
                                   </a>
                                   <div class="border-left ml-2 px-2 btn btn-md" id="removeFile" wire:click="$emit('remove_path')">

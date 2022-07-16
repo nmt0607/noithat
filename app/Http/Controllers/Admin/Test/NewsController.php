@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Reponse;
 use Illuminate\Support\Facades\Validator;
 use App\Models\News;
+use App\Models\File;
 use App\Helpers;
+use Illuminate\Support\Str;
 class NewsController extends Controller{
 
     public function index(Request $request){
@@ -113,16 +115,50 @@ class NewsController extends Controller{
         $input->meta_des_vi= $request->meta_des_vi;
         $input->meta_des_en= $request->meta_des_vi;
         $input->author= $request->author;
-        if($request->image){
-            $input->image= 'storage/'.$request->image->store('public/article-file-upload');
-        }
+        // if($request->image){
+        //     $input->image= 'storage/'.$request->image->store('public/article-file-upload');
+        // }
         $input->status= $request->status;
         $input->category= $request->category;
         $input->slug= Helpers\Slug::slugify($request->name_vi);
         $input->slug_en= Helpers\Slug::slugify($request->name_en);
         $input->date_submit = $request->date_submit;
         $input->save();
+        if($request->image){
+            $model_name = News::class;
+            $folder = app($model_name)->getTable();
+            $filePath = 'storage/'.$request->image->storeAs('uploads/' . $folder . '/files/' . auth()->id(), Str::random(20).time().'.'.$request->image->extension(), 'local');
+
+            $this->saveFile($request->image, $input->id, $filePath, $model_name, $folder);
+
+            $input->image = $filePath;
+            $input->save();
+        }
         return redirect()->route('admin.news.index')->with('success', 'Tạo mới thành công');
+    }
+
+    public function saveFile($file, $model_id, $filePath, $model_name, $folder){
+        $originalName = $file->getClientOriginalName();
+
+        $fileUpload = new File();
+        $fileUpload->url = $filePath;
+        $fileUpload->size_file = $this->getFileSize($file);
+        $fileUpload->file_name = $originalName;
+        $fileUpload->model_name = $model_name;
+        $fileUpload->model_id = $model_id;
+        $fileUpload->note = pathinfo($originalName,PATHINFO_FILENAME);
+        $fileUpload->admin_id = auth()->check() ? auth()->id() : null;
+
+        $fileUpload->save();
+    }
+
+    public function getFileSize($file) {
+        $bytes = $file->getSize();
+        $units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB'];
+        for ($i = 0; $bytes > 1024; $i++) {
+            $bytes /= 1024;
+        }
+        return round($bytes, 2) . ' ' . $units[$i];
     }
 
     public function edit(Request $request, $id){
@@ -234,10 +270,20 @@ class NewsController extends Controller{
             'category' => $request->category,
             'date_submit' => $request->date_submit,
         ];
+        $input = News::findOrFail($id);
+        $input->update($data);
         if($request->image){
-            $data['image'] = 'storage/'.$request->image->store('public/article-file-upload');
+            if($input->image&&file_exists('./'. $input->image)){
+                unlink('./'. $input->image);
+                File::where('model_id',$input->id)->where('model_name',News::class)->delete();
+            }
+            $model_name = News::class;
+            $folder = app($model_name)->getTable();
+            $filePath = 'storage/'.$request->image->storeAs('uploads/' . $folder . '/files/' . auth()->id(), Str::random(20).time().'.'.$request->image->extension(), 'local');
+            $this->saveFile($request->image, $input->id, $filePath, $model_name, $folder);
+            $input->image = $filePath;
+            $input->save();
         }
-        $status = News::findOrFail($id)->update($data);
         return redirect()->route('admin.news.index')->with('success', 'Chỉnh sửa thành công');
     }
 }

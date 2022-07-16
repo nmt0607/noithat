@@ -8,7 +8,7 @@
     </div>
 
 <!-- Title -->
-    {{ Form::open(['url' => route('admin.news.update', $editId), 'method' => 'PUT', 'enctype' => 'multipart/form-data']) }}
+    {{ Form::open(['url' => route('admin.news.update', $editId), 'method' => 'PUT', 'enctype' => 'multipart/form-data', 'name'=>'news_form']) }}
     @csrf
         <div class="card">
             <div class="card-body p-2">
@@ -168,9 +168,10 @@
                         <div class="form-group col-md-3">
                             <div class="select-category">
                                 <select class="form-select form-control" aria-label="Default select example" name="category">
-                                    <option value="0" {{isset($info)?($info->category == 0 ?'selected':''):""}}>--Chọn loại tin --</option>
-                                    <option value="1" {{isset($info)?($info->category == 1 ?'selected':''):""}}>Tin nổi bật</option>
-                                    <option value="-1" {{isset($info)?($info->category == -1 ?'selected':''):""}}>Tin ẩn </option>
+                                    <option value="0" {{isset($info)?($info->category == 0 ?'selected':''):""}}>--Chọn loại tin tức --</option>
+                                    <option value="1" {{isset($info)?($info->category == 1 ?'selected':''):""}}>Tin phổ biến</option>
+                                    <option value="2" {{isset($info)?($info->category == 2 ?'selected':''):""}}>Tin thường </option>
+                                    <option value="3" {{isset($info)?($info->category == 3 ?'selected':''):""}}>Tin tức khác </option>
                                 </select>
                             </div>
                         </div>
@@ -197,7 +198,7 @@
                 </div>
 
                 <div class="w-100 clearfix my-2">
-                    <button type="submit" class="float-right btn ml-1 btn-primary">Lưu</button>
+                    <button type="button" class="float-right btn ml-1 btn-primary" id='btn-save'>Lưu</button>
                     <a href="{{ route('admin.news.index') }}">
                         <button type="button" class="btn btn-outline-primary float-right mr-1">Hủy</button>
                     </a>
@@ -255,5 +256,13 @@
                 reader.readAsDataURL(file);
             }
         });
+
+        // xử lý khi gửi form
+        $('#btn-save').click(function(e){
+            e.preventDefault();
+            $(this).attr('disabled', true)
+            form = document.forms['news_form']
+		    form.submit()
+        })
     });
 </script>

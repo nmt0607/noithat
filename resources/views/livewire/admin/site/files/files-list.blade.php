@@ -1,59 +1,82 @@
-<div>
-    <div class="card">
-        <div class="card-body p-2">
-            <div class="filter d-flex align-items-center justify-content-between mb-2">
+<div class="body-content p-2">
+    <div class="p-2 pb-3 d-flex align-items-center justify-content-between">
+        <div class="">
+            <h4 class="m-0 ml-2">
+                Quản lý Files
+            </h4>
+        </div>
+        <div class="paginate">
+            <div class="d-flex">
                 <div class="">
-                        <div class="input-group">
-                            <input type="text" wire:model.debounce.1000ms="searchTerm" class="form-control-sm form-control custom-input-control" id="searchTerm" placeholder="Search"  name="searchTerm">
-                            <div class="input-group-append">
-                                <span class="input-group-text" id="keywordAppend">
-                                    <div class="text-xs">
-                                        <i class="fa fa-search"></i>
-                                    </div>
-                                </span>
-                            </div>
-                        </div>
+                    <a href="{{ route('home') }}"><i class="fa fa-home"></i> Trang chủ</a>
+                </div>
+                <span class="px-2">/</span>
+                <div class="">
+                    <div class="disable">Quản lý Files</div>
                 </div>
             </div>
-            
-            <table class="table table-striped">
-                <thead class="">
-                    <tr>
-                        <th>STT</th>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body p-2">
+            <div class="widget-body">
+                <div class="widget-main">
+                    <div class="row">
+                        <div class="col-4" >
+                            <label class="col-form-label">Tìm kiếm</label>
+                            <input wire:model.debounce.1000ms="searchName" placeholder="Tìm kiếm theo người đăng, model name, tên file" type="text" class="form-control">
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+            </div>
+
+            <div class="filter d-flex align-items-center justify-content-between mb-2">
+                <button type="button" class="btn btn-outline-primary" wire:click="resetSearch"><i class="fa fa-undo"></i> Làm mới</button>
+            </div>
+
+            <div wire:loading class="loader"></div>
+            <table class="table table-bordered table-hover dataTable dtr-inline" role="grid" aria-describedby="example2_info">
+                <thead>
+                    <tr role='row'>
+                        <th class='text-center w-60'>STT</th>
                         <th>Model ID</th>
-                        <th>Model Name</th>
-                        <th>Tên File</th>
+                        <th>Tên Model</th>
+                        <th>Tên file</th>
                         <th>Dung lượng</th>
                         <th>Ghi chú</th>
-                        <th>Hành động</th>
+                        <th>Người đăng</th>
+                        <th class='text-center w-120'>Hành động</th>
                     </tr>
                 </thead>
-                <div wire:loading class="loader"></div>
                 <tbody>
-                        @foreach($data as $key=> $item)
-                            <tr>
-                                <td class="align-middle">{{$key+1}}</td>
-                                <td class="align-middle">{{$item->model_id}}</td>
-                                <td class="align-middle">{{$item->model_name}}</td>
-                                <td class="align-middle"><a href="{{$item->url}}" download="{{$item->name}}">{{$item->file_name}}</a></td>
-                                <td class="align-middle">{{$item->size_file}} KB</td>
-                                <td class="align-middle">{{$item->note}}</td>
-                                <td class="align-middle">
-                                    <a href="{{route('files.edit',$item->id)}}" 
-                                    class="btn-sm border-0 bg-transparent">
-                                    <img src="/images/pent2.svg" alt="Edit">
-                            </a>
-                                </td>
-                            </tr>
-                        @endforeach
+                    @forelse ($data as $key => $row)
+                        <tr>
+                            <td class='text-center'>{{($data->currentPage() - 1) * $data->perPage() + $loop->iteration}}</td>
+                            <td>{{$row->model_id}}</td>
+                            <td>{{$row->model_name}}</td>
+                            <td><a href="{{$row->url}}" target="_blank">{{$row->file_name}}</a></td>
+                            <td>{{$row->size_file}}</td>
+                            <td>{{$row->note}}</td>
+                            <td>{{$row->user_name}}</td>
+                            <td class='text-center'>
+                                <a  href="{{route('admin.files.edit',$row['id'])}}" class='btn btn-primary btn-sm' title='Sửa'><i class='fa fa-pencil font-14'></i></a>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr class="text-center text-danger">
+                            <td colspan="7">Không có bản ghi</td>
+                        </tr>
+                    @endforelse
                 </tbody>
             </table>
-            @if(!isset($data) || !count($data))
-                <div class="pb-2 pt-3 text-center">Không tìm thấy dữ liệu</div>
-            @endif
         </div>
-        @if(count($data))
-            {{ $data->links() }}
-        @endif
+        {{ $data->links() }}
     </div>
+    {{-- Start modal --}}
 </div>
+
+<script>
+    $("document").ready(() => {
+    });
+</script>

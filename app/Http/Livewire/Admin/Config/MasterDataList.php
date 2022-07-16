@@ -122,7 +122,7 @@ class MasterDataList extends BaseLive
         $master->note_en = $this->note_en;
         $master->url = $this->url;
         $master->number_value = ($this->number_value) ? $this->number_value : null;
-        $master->image =$this->image ? $this->image->storeAs('public/photos', $this->image->getClientOriginalName()) : null;
+        $master->image =$this->image ?('storage/'. $this->image->storeAs('public/photos', $this->image->getClientOriginalName()) ): null;
         $master->save();
         $this->emit('close-modal-create');
         $this->resetform();
@@ -180,13 +180,13 @@ class MasterDataList extends BaseLive
         $master->url = $this->url;
         $master->number_value = ($this->number_value) ? $this->number_value : null;
         if(isset($this->remove_path) && $this->remove_path){
-            if(file_exists('./storage/'. $master->image)){
-                unlink('./storage/'. $master->image);
+            if(file_exists('./'. $master->image)){
+                unlink('./'. $master->image);
             }
             $master->image = null;
         }
         if ($this->change_image && $this->image) {
-            $master->image =$this->image->storeAs('public/photos', $this->image->getClientOriginalName());
+            $master->image = 'storage/'.$this->image->storeAs('public/photos', $this->image->getClientOriginalName());
         }
         $master->save();
         $this->resetform();

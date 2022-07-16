@@ -1,84 +1,67 @@
-<div>
-    <div class="form_title">
-        <label>Tên file </label>
+<div class="body-content p-2">
+    <div class="p-2 pb-3 d-flex align-items-center justify-content-between">
+        <div class="">
+            <h4 class="m-0 ml-2">
+                Chỉnh sửa File
+            </h4>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-body p-2">
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-5">
+                        <label>Tên file</label>
+                        <input class='form-control' placeholder='Tên file' value="{{$file->file_name}}" disabled>
+                    </div>
+                    <div class="offset-1 col-5">
+                        <label>Dung lượng</label>
+                        <input class='form-control' placeholder='Dung lượng' value="{{$file->size_file}}" disabled>
+                    </div>
+                </div> 
+                <div class="row mt-2">
+                    <div class="col-5">
+                        <label>Tên Model</label>
+                        <input class='form-control' placeholder='Tên model' value="{{$file->model_name}}" disabled>
+                    </div>
+                    <div class="offset-1 col-5">
+                        <label>Model ID</label>
+                        <input class='form-control' placeholder='Model ID' value="{{$file->model_id}}" disabled>
+                    </div>
+                </div> 
+                <div class="row mt-2">
+                    <div class="col-11">
+                        <label>Url</label>
+                        <input class='form-control' placeholder='Url' value="{{$file->url}}" disabled>
+                    </div>
+                </div> 
+                <div class="row mt-2">
+                    <div class="col-5">
+                        <label>Người đăng</label>
+                        <input class='form-control' placeholder='Người đăng' value="{{$file->admin_id}}" disabled>
+                    </div>
+                    <div class="offset-1 col-5">
+                        <label>Ghi chú</label>
+                        <input class='form-control' placeholder='ghi chú' wire:model='note'>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </div>
+    <div class="form-group">
         <div class="row">
-            <div class="col mb-3">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text text-xs" id="nameViPrepend">
-                            vi
-                        </span>
-                    </div>
-                    <input type="text" class="form-control" name="file_name" wire:model.defer="file_name">
-                </div>
-                @error('file_name')
-                    @include('layouts.partials.text._error')
-                @enderror
+            <div class="offset-4 col-8">
+                <a class="btn btn-outline-primary" type="button" href="{{route('admin.files.index')}}">
+                    <i class="ace-icon fa fa-reply bigger-110"></i>
+                    Quay lại
+                </a>
+                &nbsp; &nbsp; &nbsp;
+                <button type="submit" class="btn btn-primary" id='btn_save' wire:click='edit'>
+                    <i class="ace-icon fa fa-check bigger-110"></i>
+                    Lưu
+                </button>
             </div>
-            <div class="col mb-3">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text text-xs" id="nameEnPrepend">
-                            en
-                        </span>
-                    </div>
-                    <input type="text" class="form-control" name="file_name_en" wire:model.defer="file_name_en">
-                </div>
-                @error('file_name_en')
-                    @include('layouts.partials.text._error')
-                @enderror
-            </div>
-        </div>
-    </div>
-    <div class="form_content">
-        <label>Url</label>
-        <div class="form-group">
-            <input disabled type="text" class="form-control" name="url" wire:model.defer="url">
-        </div>
-    </div>
-    <div class="form_content">
-        <label>Dung lượng</label>
-        <div class="form-group">
-            <input disabled type="text" class="form-control" name="size_file" wire:model.defer="size_file">
-        </div>
-    </div>
-    <div class="form_title">
-        <label>Ghi chú</label>
-        <div class="row">
-            <div class="col mb-3">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text text-xs" id="introViPrepend">
-                            vi
-                        </span>
-                    </div>
-                    <input  type="text" class="form-control" name="note" wire:model.defer="note">
-                </div>
-                @error('note')
-                    @include('layouts.partials.text._error')
-                @enderror
-            </div>
-            <div class="col mb-3">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text text-xs" id="introEnPrepend">
-                            en
-                        </span>
-                    </div>
-                    <input  type="text" class="form-control" name="note_en" wire:model.defer="note_en">
-                </div>
-                @error('note_en')
-                    @include('layouts.partials.text._error')
-                @enderror
-            </div>
-        </div>
-    </div><br><br><br>
-    <div class="row">
-        <div class="w-100 clearfix my-2 col-7">
-            <button type="button" wire:click.prevent="edit" class="float-right btn ml-1 btn-primary">Lưu lại</button>
-            <a href="{{route('files.index')}}">
-                <button type="button" class="btn btn-secondary float-right mr-1">Hủy</button>
-            </a>
         </div>
     </div>
 </div>
