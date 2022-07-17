@@ -2,6 +2,7 @@
 return [
     [
         'type' => 3,
+        'v_value' => "khách hàng nói gì về chúng tôi",
         'v_key' => 'customer talk',
         'v_content' => '<p class="mb-4">Tôi luôn dị ứng với các công ty tài chính về khoản cho vay và lãi suất của nó.
         </p><p class="mb-4"> Nhưng EASY SMEđã giúp tôi thay đổi suy nghĩ đó. Mọi thứ về cách tính lãi suất, hạn mức, thanh toán, phí đều được công khai minh bạch. Đợt rồi tôi có mở hạn mức vay EASY SME để xoay vòng vốn trong kinh doanh, đúng 16h là khoản hạn mức đã được duyệt, không nghĩ là nhanh đến vậy cứ sợ cuối tuần không kịp đi.</p>
