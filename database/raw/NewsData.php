@@ -1,0 +1,43 @@
+<?php
+return [
+    [
+        'name_vi' => 'EASY – Giải pháp vay tiêu dùng lãi thấp 1',
+        'name_en' => 'EASY – Giải pháp vay tiêu dùng lãi thấp 1',
+        'intro_vi' => 'Vay vốn rồi dính vào tình trạng nợ xấu đang ngày càng phổ biến hiện nay. Nguyên nhân chủ yếu bắt nguồn từ việc khách...',
+        'intro_en' => 'Vay vốn rồi dính vào tình trạng nợ xấu đang ngày càng phổ biến hiện nay. Nguyên nhân chủ yếu bắt nguồn từ việc khách...',
+        'content_vi' => '<span style="color: rgb(0, 0, 0); font-family: Poppins, sans-serif; font-size: 16px;">Vay v&#7889;n r&#7891;i d&iacute;nh v&agrave;o t&igrave;nh tr&#7841;ng n&#7907; x&#7845;u &#273;ang ng&agrave;y c&agrave;ng ph&#7893; bi&#7871;n hi&#7879;n nay. Nguy&ecirc;n nh&acirc;n ch&#7911; y&#7871;u b&#7855;t ngu&#7891;n t&#7915; vi&#7879;c kh&aacute;ch...</span>',
+        'content_en' => '<span style="color: rgb(0, 0, 0); font-family: Poppins, sans-serif; font-size: 16px;">Vay v&#7889;n r&#7891;i d&iacute;nh v&agrave;o t&igrave;nh tr&#7841;ng n&#7907; x&#7845;u &#273;ang ng&agrave;y c&agrave;ng ph&#7893; bi&#7871;n hi&#7879;n nay. Nguy&ecirc;n nh&acirc;n ch&#7911; y&#7871;u b&#7855;t ngu&#7891;n t&#7915; vi&#7879;c kh&aacute;ch...</span>',
+        'image' => 'storage/uploads/news/files/1/1mpmxvzWkM9KT4cx8glO1658049614.png',
+        'date_submit' => '2022-07-17',
+    ],
+    [
+        'name_vi' => 'EASY – Giải pháp vay tiêu dùng lãi thấp 2',
+        'name_en' => 'EASY – Giải pháp vay tiêu dùng lãi thấp 2',
+        'intro_vi' => 'Vay vốn rồi dính vào tình trạng nợ xấu đang ngày càng phổ biến hiện nay. Nguyên nhân chủ yếu bắt nguồn từ việc khách...',
+        'intro_en' => 'Vay vốn rồi dính vào tình trạng nợ xấu đang ngày càng phổ biến hiện nay. Nguyên nhân chủ yếu bắt nguồn từ việc khách...',
+        'content_vi' => '<span style="color: rgb(0, 0, 0); font-family: Poppins, sans-serif; font-size: 16px;">Vay v&#7889;n r&#7891;i d&iacute;nh v&agrave;o t&igrave;nh tr&#7841;ng n&#7907; x&#7845;u &#273;ang ng&agrave;y c&agrave;ng ph&#7893; bi&#7871;n hi&#7879;n nay. Nguy&ecirc;n nh&acirc;n ch&#7911; y&#7871;u b&#7855;t ngu&#7891;n t&#7915; vi&#7879;c kh&aacute;ch...</span>',
+        'content_en' => '<span style="color: rgb(0, 0, 0); font-family: Poppins, sans-serif; font-size: 16px;">Vay v&#7889;n r&#7891;i d&iacute;nh v&agrave;o t&igrave;nh tr&#7841;ng n&#7907; x&#7845;u &#273;ang ng&agrave;y c&agrave;ng ph&#7893; bi&#7871;n hi&#7879;n nay. Nguy&ecirc;n nh&acirc;n ch&#7911; y&#7871;u b&#7855;t ngu&#7891;n t&#7915; vi&#7879;c kh&aacute;ch...</span>',
+        'image' => 'storage/uploads/news/files/1/1mpmxvzWkM9KT4cx8glO1658049614.png',
+        'date_submit' => '2022-07-17',
+    ],
+    [
+        'name_vi' => 'EASY – Giải pháp vay tiêu dùng lãi thấp 3',
+        'name_en' => 'EASY – Giải pháp vay tiêu dùng lãi thấp 3',
+        'intro_vi' => 'Vay vốn rồi dính vào tình trạng nợ xấu đang ngày càng phổ biến hiện nay. Nguyên nhân chủ yếu bắt nguồn từ việc khách...',
+        'intro_en' => 'Vay vốn rồi dính vào tình trạng nợ xấu đang ngày càng phổ biến hiện nay. Nguyên nhân chủ yếu bắt nguồn từ việc khách...',
+        'content_vi' => '<span style="color: rgb(0, 0, 0); font-family: Poppins, sans-serif; font-size: 16px;">Vay v&#7889;n r&#7891;i d&iacute;nh v&agrave;o t&igrave;nh tr&#7841;ng n&#7907; x&#7845;u &#273;ang ng&agrave;y c&agrave;ng ph&#7893; bi&#7871;n hi&#7879;n nay. Nguy&ecirc;n nh&acirc;n ch&#7911; y&#7871;u b&#7855;t ngu&#7891;n t&#7915; vi&#7879;c kh&aacute;ch...</span>',
+        'content_en' => '<span style="color: rgb(0, 0, 0); font-family: Poppins, sans-serif; font-size: 16px;">Vay v&#7889;n r&#7891;i d&iacute;nh v&agrave;o t&igrave;nh tr&#7841;ng n&#7907; x&#7845;u &#273;ang ng&agrave;y c&agrave;ng ph&#7893; bi&#7871;n hi&#7879;n nay. Nguy&ecirc;n nh&acirc;n ch&#7911; y&#7871;u b&#7855;t ngu&#7891;n t&#7915; vi&#7879;c kh&aacute;ch...</span>',
+        'image' => 'storage/uploads/news/files/1/1mpmxvzWkM9KT4cx8glO1658049614.png',
+        'date_submit' => '2022-07-17',
+    ],
+    [
+        'name_vi' => 'EASY – Giải pháp vay tiêu dùng lãi thấp 4',
+        'name_en' => 'EASY – Giải pháp vay tiêu dùng lãi thấp 4',
+        'intro_vi' => 'Vay vốn rồi dính vào tình trạng nợ xấu đang ngày càng phổ biến hiện nay. Nguyên nhân chủ yếu bắt nguồn từ việc khách...',
+        'intro_en' => 'Vay vốn rồi dính vào tình trạng nợ xấu đang ngày càng phổ biến hiện nay. Nguyên nhân chủ yếu bắt nguồn từ việc khách...',
+        'content_vi' => '<span style="color: rgb(0, 0, 0); font-family: Poppins, sans-serif; font-size: 16px;">Vay v&#7889;n r&#7891;i d&iacute;nh v&agrave;o t&igrave;nh tr&#7841;ng n&#7907; x&#7845;u &#273;ang ng&agrave;y c&agrave;ng ph&#7893; bi&#7871;n hi&#7879;n nay. Nguy&ecirc;n nh&acirc;n ch&#7911; y&#7871;u b&#7855;t ngu&#7891;n t&#7915; vi&#7879;c kh&aacute;ch...</span>',
+        'content_en' => '<span style="color: rgb(0, 0, 0); font-family: Poppins, sans-serif; font-size: 16px;">Vay v&#7889;n r&#7891;i d&iacute;nh v&agrave;o t&igrave;nh tr&#7841;ng n&#7907; x&#7845;u &#273;ang ng&agrave;y c&agrave;ng ph&#7893; bi&#7871;n hi&#7879;n nay. Nguy&ecirc;n nh&acirc;n ch&#7911; y&#7871;u b&#7855;t ngu&#7891;n t&#7915; vi&#7879;c kh&aacute;ch...</span>',
+        'image' => 'storage/uploads/news/files/1/1mpmxvzWkM9KT4cx8glO1658049614.png',
+        'date_submit' => '2022-07-17',
+    ],
+];
