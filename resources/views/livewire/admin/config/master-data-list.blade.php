@@ -2,7 +2,7 @@
     <div class="p-2 pb-3 d-flex align-items-center justify-content-between">
         <div class="">
             <h4 class="m-0 ml-2">
-                Master Data List
+                Cấu hình chung
             </h4>
         </div>
         <div class="paginate">
@@ -12,7 +12,7 @@
                 </div>
                 <span class="px-2">/</span>
                 <div class="">
-                    <div class="disable">Master data list</div>
+                    <div class="disable">Cấu hình chung</div>
                 </div>
             </div>
         </div>
@@ -125,9 +125,15 @@
         $('#note_en').summernote('code', '');
         window.livewire.on('close-modal-create', () => {
             $('#close-modal-create').click();
+            document.getElementById('file-create').value= null;
         });
         window.livewire.on('close-modal-edit', () => {
             $('#close-modal-edit').click();
+            document.getElementById('image_edit').value= null;
+        });
+        window.livewire.on('resetImage', () => {
+            document.getElementById('image_edit').value= null;
+            document.getElementById('file-create').value= null;
         });
         window.livewire.on('setEditorCreate', () => {
             $('#note').summernote('code', '');

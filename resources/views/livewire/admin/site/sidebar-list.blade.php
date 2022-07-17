@@ -27,7 +27,7 @@
                 <li class="nav-item">
                     <a href="{{route('admin.config.masterData')}}" class="nav-link {{setActive2('config/master-data')}}">
                         <i class="far fa-circle nav-icon"></i>
-                        <p>Master data</p>
+                        <p>Cấu hình chung</p>
                     </a>
                 </li>
                 <li class="nav-item">

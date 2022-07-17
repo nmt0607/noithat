@@ -4,7 +4,7 @@
           <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">{{__('master/masterManager.form_data.create')}}</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Thêm cấu hình</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true close-btn">×</span>
                 </button>
@@ -75,13 +75,13 @@
                     </div>
                     <div class="form-group">
                       <label >{{__('master/masterManager.menu_name.master_title_table.image')}} <span class="text-danger"></span></label>
-                      <input type="file"  id="image" wire:model.defer="image" name="image" rows="5" cols="100">
+                      <input type="file" wire:model="image" name="image" rows="5" cols="100" id='file-create'>
                     </div>
                 </form>
               </div>
               <div class="modal-footer">
                 <button type="button" wire:click.prevent="resetform()" id="close-modal-create" class="btn btn-outline-primary close-btn " data-dismiss="modal" >Đóng</button>
-                <button type="button" id="btn-save" class="btn btn-primary close-modal">Lưu</button>
+                <button type="button" id="btn-save" class="btn btn-primary close-modal" wire:loading.attr="disabled">Lưu</button>
               </div>
             </div>
           </div>

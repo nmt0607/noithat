@@ -4,7 +4,7 @@
           <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">{{__('master/masterManager.form_data.edit')}}</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Sửa cấu hình</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true close-btn">×</span>
                 </button>
@@ -79,25 +79,25 @@
                       <input type="file" id="image_edit" wire:model="image" name="image" rows="5" cols="100" wire:click="$emit('remove_path')">
                     </div>
                     <div class="preview-file">
-                      @if($image)
-                          <div class="form_content ml-2 form-group preview-data" data="{{ './storage/'. $image }}">
-                              <div class="py-2 px-3 bg-light d-flex align-items-center" id="preview-item">
-                                  <a href="{{ '/'. $image }}" target="_blank">
-                                      <i class="fas fa-file mr-2"></i> {{$image}}
-                                  </a>
-                                  <div class="border-left ml-2 px-2 btn btn-md" id="removeFile" wire:click="$emit('remove_path')">
-                                      <i class="fa fa-times mr-1"></i> Xóa
-                                  </div>
-                              </div>
-                          </div>
-                      @endif
+                        @if($image)
+                            <div class="form_content ml-2 form-group preview-data" data="{{ './storage/'. $image }}">
+                                <div class="py-2 px-3 bg-light d-flex align-items-center" id="preview-item">
+                                    <a href='{{$change_image?"javascript:;":("/". $image )}}' {{$change_image?"":'target="_blank"'}} style='{{$change_image?"cursor: auto;":""}}'>
+                                        <i class="fas fa-file mr-2"></i> {{$image}}
+                                    </a>
+                                    <div class="border-left ml-2 px-2 btn btn-md" id="removeFile" wire:click="$emit('remove_path')">
+                                        <i class="fa fa-times mr-1"></i> Xóa
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
                   </div>
                   <input class="form-control" type="hidden" name="remove_path" id="remove_path"/>
                 </form>
               </div>
               <div class="modal-footer">
                 <button type="button" wire:click.prevent="resetform()" id="close-modal-edit" class="btn btn-outline-primary close-btn" data-dismiss="modal" >Đóng</button>
-                <button type="button" id="btn-update" class="btn btn-primary close-modal">Lưu</button>
+                <button type="button" id="btn-update" class="btn btn-primary close-modal" wire:loading.attr="disabled">Lưu</button>
               </div>
             </div>
           </div>
@@ -123,18 +123,18 @@
                 if(f.length){
                     f = f[0];
                     $("#removeFile").trigger("click");
-                    $(".preview-file").empty().html(
-                        '<div class="form_content ml-2 form-group preview-data">'
-                            +'<div class="py-2 px-3 bg-light d-flex align-items-center" id="preview-item">'
-                                +'<div>'
-                                    +'<i class="fas fa-file mr-2"></i>' + f.name
-                                +'</div>'
-                                +'<div class="border-left ml-2 px-2 btn btn-md" id="removeFile">'
-                                    +'<i class="fa fa-times mr-1"></i> Xóa'
-                                +'</div>'
-                            +'</div>'
-                        +'</div>'
-                    );
+                    // $(".preview-file").empty().html(
+                    //     '<div class="form_content ml-2 form-group preview-data">'
+                    //         +'<div class="py-2 px-3 bg-light d-flex align-items-center" id="preview-item">'
+                    //             +'<div>'
+                    //                 +'<i class="fas fa-file mr-2"></i>' + f.name
+                    //             +'</div>'
+                    //             +'<div class="border-left ml-2 px-2 btn btn-md" id="removeFile">'
+                    //                 +'<i class="fa fa-times mr-1"></i> Xóa'
+                    //             +'</div>'
+                    //         +'</div>'
+                    //     +'</div>'
+                    // );
                 }
             });
 

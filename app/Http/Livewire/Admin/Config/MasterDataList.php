@@ -5,9 +5,11 @@ namespace App\Http\Livewire\Admin\Config;
 use App\Enums\EMasterData;
 use Livewire\Component;
 use App\Models\MasterData;
+use App\Models\File;
 use App\Http\Livewire\Base\BaseLive;
 use Laravel\Passport\HasApiTokens;
 use Livewire\WithFileUploads;
+use Illuminate\Support\Str;
 
 class MasterDataList extends BaseLive
 {
@@ -96,6 +98,7 @@ class MasterDataList extends BaseLive
         $this->change_image = false;
         $this->searchTerm = null;
         $this->number_value = null;
+        $this->emit('resetImage');
     }
 
     public function store()
@@ -122,16 +125,50 @@ class MasterDataList extends BaseLive
         $master->note_en = $this->note_en;
         $master->url = $this->url;
         $master->number_value = ($this->number_value) ? $this->number_value : null;
-        $master->image =$this->image ?('storage/'. $this->image->storeAs('public/photos', $this->image->getClientOriginalName()) ): null;
         $master->save();
+        if($this->image){
+            $model_name = MasterData::class;
+            $folder = app($model_name)->getTable();
+            $filePath = 'storage/'.$this->image->storeAs('uploads/' . $folder . '/files/' . auth()->id(), Str::random(20).time().'.'.$this->image->extension(), 'local');
+
+            $this->saveFile($this->image, $master->id, $filePath, $model_name, $folder);
+            $master->image = $filePath;
+            $master->save();
+        }
         $this->emit('close-modal-create');
         $this->resetform();
         $this->dispatchBrowserEvent('show-toast', ["type" => "success", "message" => __('notification.common.success.add')] );
     }
+    public function saveFile($file, $model_id, $filePath, $model_name, $folder){
+        $originalName = $file->getClientOriginalName();
 
+        $fileUpload = new File();
+        $fileUpload->url = $filePath;
+        $fileUpload->size_file = $this->getFileSize($file);
+        $fileUpload->file_name = $originalName;
+        $fileUpload->model_name = $model_name;
+        $fileUpload->model_id = $model_id;
+        $fileUpload->note = pathinfo($originalName,PATHINFO_FILENAME);
+        $fileUpload->admin_id = auth()->check() ? auth()->id() : null;
+
+        $fileUpload->save();
+    }
+    public function getFileSize($file) {
+        $bytes = $file->getSize();
+        $units = ['B', 'KB', 'MB', 'GB', 'TB', 'PB'];
+        for ($i = 0; $bytes > 1024; $i++) {
+            $bytes /= 1024;
+        }
+        return round($bytes, 2) . ' ' . $units[$i];
+    }
     public function delete()
     {
-       MasterData::findOrFail($this->deleteId)->delete();
+       $data = MasterData::findOrFail($this->deleteId);
+       if($data->image&&file_exists('./'. $data->image)){
+            unlink('./'. $data->image);
+            File::where('model_id',$data->id)->where('model_name',MasterData::class)->delete();
+        }
+        $data->delete();
        $this->dispatchBrowserEvent('show-toast', ["type" => "success", "message" => __('notification.common.success.delete')] );
     }
 
@@ -153,6 +190,7 @@ class MasterDataList extends BaseLive
         $this->number_value = $master->number_value;
         $this->image = $master->image;
         $this->resetValidation();
+        $this->emit('resetImage');
         $this->emit('setEditor', $master->note, $master->note_en, $master->v_content, $master->v_content_en);
     }
 
@@ -179,14 +217,20 @@ class MasterDataList extends BaseLive
         $master->note_en = $this->note_en;
         $master->url = $this->url;
         $master->number_value = ($this->number_value) ? $this->number_value : null;
-        if(isset($this->remove_path) && $this->remove_path){
-            if(file_exists('./'. $master->image)){
+        if(isset($this->change_image) && $this->change_image){
+            if($master->image && file_exists('./'. $master->image)){
                 unlink('./'. $master->image);
+                File::where('model_id',$master->id)->where('model_name',MasterData::class)->delete();
             }
             $master->image = null;
         }
         if ($this->change_image && $this->image) {
-            $master->image = 'storage/'.$this->image->storeAs('public/photos', $this->image->getClientOriginalName());
+            $model_name = MasterData::class;
+            $folder = app($model_name)->getTable();
+            $filePath = 'storage/'.$this->image->storeAs('uploads/' . $folder . '/files/' . auth()->id(), Str::random(20).time().'.'.$this->image->extension(), 'local');
+
+            $this->saveFile($this->image, $master->id, $filePath, $model_name, $folder);
+            $master->image = $filePath;
         }
         $master->save();
         $this->resetform();
