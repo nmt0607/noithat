@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             PermissionSeeder::class,
             FaqSeeder::class,
             AboutUsSeeder::class,
+            BrandSeeder::class,
             CustomersSaySeeder::class,
         ]);
     }

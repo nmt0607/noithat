@@ -14,7 +14,7 @@ class EMasterData {
     {
         return [
             1 => 'Về chúng tôi',
-
+            2 => 'Brand',
             3 => 'Khách hàng nói gì về chúng tôi',
         ];
     }
