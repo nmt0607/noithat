@@ -13,7 +13,7 @@ class EMasterData {
     public static function getListData()
     {
         return [
-            1 => 'Banner trang chủ',
+            1 => 'Về chúng tôi',
         ];
     }
 

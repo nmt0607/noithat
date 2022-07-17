@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
             CreateAdminSeeder::class,
             PermissionSeeder::class,
             FaqSeeder::class,
+            AboutUsSeeder::class,
         ]);
     }
 }

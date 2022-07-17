@@ -21,8 +21,8 @@ class CreateMasterData extends Migration
             $table->tinyInteger('type')->comment('1:POSSITION chuc danh ; 2: dan toc; 3 : ton giao; 4: quoc tich; 5: trinh do hoc van; 6: xep loai');
             $table->string('v_value_en')->nullable()->comment('gia tri');
             $table->bigInteger('parent_id')->nullable()->comment('danh muc cha neu co');
-            $table->string('v_content', 1000)->nullable()->comment('noi dung');
-            $table->string('v_content_en', 1000)->nullable()->comment('noi dung en');
+            $table->longtext('v_content')->nullable()->comment('noi dung');
+            $table->longtext('v_content_en')->nullable()->comment('noi dung en');
             $table->string('url', 1000)->nullable()->comment('URL');
             $table->string('image', 1000)->nullable()->comment('duong dan anh');
             $table->longtext('note', 1000)->nullable()->comment('ghi chú');
