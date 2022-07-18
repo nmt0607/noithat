@@ -76,7 +76,13 @@
                             <td>{!!chuanHoa($row->answer)!!}</td>
                             <td>{{$row->category}}</td>
                             <td>{{$row->order_number}}</td>
-                            <td>{{$row->image}}</td>
+                            <td class='text-center'>
+                                @if(!empty($row->image))
+                                    <img src="{{url('./'.$row->image)}}" alt="" width="70px" height="70px">
+                                @else
+                                    No image
+                                @endif
+                            </td>
                             <td class='text-center'>
                                 <a  type='button' class='btn btn-primary btn-sm' wire:click='edit({{$row}})' data-toggle='modal' data-target='#modelCreateEdit' title='Sửa'><i class='fa fa-pencil font-14'></i></a>
                                 @include('livewire.common.buttons._delete')
@@ -143,11 +149,17 @@
                         </div>
                         
 
-                        <div class="form-group"  style='margin:0 0 5px;'>
+                        <div class="form-group">
                             <label> Order number</label>
                             <input type="number" class="form-control col-6" oninput="this.value = Math.abs(this.value)"
                                 placeholder="Order number" wire:model.defer="order_number">
                             @error('order_number')
+                                @include('layouts.partials.text._error')
+                            @enderror
+                        </div>
+                        <div class="form-group">
+                            <input type="file" wire:model.defer="image" accept="image/*" id='image_test'>
+                            @error('image')
                                 @include('layouts.partials.text._error')
                             @enderror
                         </div>
@@ -173,6 +185,10 @@
     $("document").ready(() => {
         window.livewire.on('closeModalCreateEdit', () => {
             $('#modelCreateEdit').modal('hide');
+            document.getElementById('image_test').value= null;
+        });
+        window.livewire.on('resetImage', () => {
+            document.getElementById('image_test').value= null;
         });
     });
 </script>
