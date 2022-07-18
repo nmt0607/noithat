@@ -44,6 +44,7 @@ Route::group(['middleware' => ['auth', 'route-permission']], function () {
     Route::group(['prefix' => 'config'], function() {
         Route::get("/master-data", "App\Http\Controllers\Admin\Test\ConfigController@masterData")->name("admin.config.masterData");
         Route::get('/seo-config', 'App\Http\Controllers\Admin\Test\SEOConfigController@index')->name('admin.config.seoConfig');
+        Route::get('/site-config', 'App\Http\Controllers\Admin\Test\SiteConfigController@index')->name('admin.config.siteConfig');
     });
 
     Route::group(['prefix' => 'news'], function() {
