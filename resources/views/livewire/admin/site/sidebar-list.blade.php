@@ -36,6 +36,12 @@
                         <p>Cấu hình SEO</p>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="{{route('admin.config.siteConfig')}}" class="nav-link {{setActive2('config/site-config')}}">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Cấu hình trang</p>
+                    </a>
+                </li>
             </ul>
         </li>
         <li class="nav-item">
