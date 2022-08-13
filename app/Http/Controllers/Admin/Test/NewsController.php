@@ -105,6 +105,10 @@ class NewsController extends Controller{
             libxml_use_internal_errors(false);
         }
 
+        //Chỉ có 1 tin nổi bật
+        if($request->category == 2){
+            News::where('category', 2)->update(['category' => 1]);
+        }
         
         $input->name_vi= $request->name_vi;
         $input->name_en= $request->name_en;
@@ -235,7 +239,6 @@ class NewsController extends Controller{
                     file_put_contents($path, $data); 
                     $img->removeAttribute('src');
                     $img->setAttribute('src', '/storage/'.$image_name);
-                    dd('vào123');
                 }
             }
             $content_en = $dom->saveHTML();
@@ -270,6 +273,12 @@ class NewsController extends Controller{
             'category' => $request->category,
             'date_submit' => $request->date_submit,
         ];
+
+        //Chỉ có 1 tin nổi bật
+        if($request->category == 2){
+            News::where('category', 2)->update(['category' => 1]);
+        }
+
         $input = News::findOrFail($id);
         $input->update($data);
         if($request->image){
