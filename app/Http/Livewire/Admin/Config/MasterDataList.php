@@ -10,7 +10,7 @@ use App\Http\Livewire\Base\BaseLive;
 use Laravel\Passport\HasApiTokens;
 use Livewire\WithFileUploads;
 use Illuminate\Support\Str;
-
+use Illuminate\Support\Facades\Storage;
 class MasterDataList extends BaseLive
 {
     use WithFileUploads;
@@ -129,7 +129,8 @@ class MasterDataList extends BaseLive
         if($this->image){
             $model_name = MasterData::class;
             $folder = app($model_name)->getTable();
-            $filePath = 'storage/'.$this->image->storeAs('uploads/' . $folder . '/files/' . auth()->id(), Str::random(20).time().'.'.$this->image->extension(), 'local');
+            // $filePath = 'storage/'.$this->image->storeAs('uploads/' . $folder . '/files/' . auth()->id(), Str::random(20).time().'.'.$this->image->extension(), 'local');
+            $filePath = $this->image->storeAs('uploads/' . $folder . '/files/' . auth()->id(), Str::random(20).time().'.'.$this->image->extension(), 's3');
 
             $this->saveFile($this->image, $master->id, $filePath, $model_name, $folder);
             $master->image = $filePath;
@@ -227,8 +228,15 @@ class MasterDataList extends BaseLive
         if ($this->change_image && $this->image) {
             $model_name = MasterData::class;
             $folder = app($model_name)->getTable();
-            $filePath = 'storage/'.$this->image->storeAs('uploads/' . $folder . '/files/' . auth()->id(), Str::random(20).time().'.'.$this->image->extension(), 'local');
 
+            // dd($this->image);
+            // $filePath = Storage::disk('s3')->storeAs('images', $this->image);
+            // $filePath = Storage::disk('s3')->url($filePath);
+
+            $filePath = $this->image->storeAs('uploads/' . $folder . '/files/' . auth()->id(), Str::random(20).time().'.'.$this->image->extension(), 's3');
+            dd(Storage::disk('s3')->temporaryUrl($filePath, now()->addMinutes(30)));
+            // $filePath = Storage::disk('s3')->url($filePath);
+            // dd(Storage::disk('s3')->get($filePath) );
             $this->saveFile($this->image, $master->id, $filePath, $model_name, $folder);
             $master->image = $filePath;
         }

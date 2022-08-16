@@ -212,12 +212,8 @@
     $("document").ready(function() {
         $('#content_vi').val('')
         $('#content_en').val('')
-        $('#content_vi').summernote('code', {
-            !!json_encode(chuanHoa($info - > content_vi)) ?? ''!!
-        });
-        $('#content_en').summernote('code', {
-            !!json_encode(chuanHoa($info - > content_en)) ?? ''!!
-        });
+        $('#content_vi').summernote('code', {!! json_encode($info->content_vi) ?? '' !!});
+        $('#content_en').summernote('code', {!! json_encode($info->content_en) ?? '' !!});
     })
 </script>
 @else
@@ -225,12 +221,8 @@
     $("document").ready(function() {
         $('#content_vi').val('')
         $('#content_en').val('')
-        $('#content_vi').summernote('code', {
-            !!(json_encode(old('content_vi'))) ?? ''!!
-        });
-        $('#content_en').summernote('code', {
-            !!(json_encode(old('content_en'))) ?? ''!!
-        });
+        $('#content_vi').summernote('code', {!!(json_encode(old('content_vi'))) ?? ''!!});
+        $('#content_en').summernote('code', {!!(json_encode(old('content_en'))) ?? ''!!});
     })
 </script>
 @endif
