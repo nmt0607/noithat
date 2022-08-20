@@ -18,8 +18,8 @@ class CreateSignUpConsulationsTable extends Migration
             $table->string('name')->comment('Họ và tên');
             $table->string('email')->unique();
             $table->string('phone')->unique();
-            $table->string('position')->unique();
-            $table->string('tax_code')->unique();
+            $table->string('position');
+            $table->string('tax_code');
             $table->string('IP');
             $table->timestamps();
         });

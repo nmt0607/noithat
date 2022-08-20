@@ -2,7 +2,7 @@
     <div class="p-2 pb-3 d-flex align-items-center justify-content-between">
         <div class="">
             <h4 class="m-0 ml-2">
-                Danh sách đăng ký nhận tư vấn
+                Danh sách câu hỏi của khách hàng
             </h4>
         </div>
         <div class="paginate">
@@ -12,7 +12,7 @@
                 </div>
                 <span class="px-2">/</span>
                 <div class="">
-                    <div class="disable">Đăng ký tư vấn</div>
+                    <div class="disable">Danh sách câu hỏi</div>
                 </div>
             </div>
         </div>
@@ -24,7 +24,7 @@
                     <div class="row">
                         <div class="col-4" >
                             <label class="col-form-label">Tìm kiếm</label>
-                            <input wire:model.debounce.1000ms="searchName" placeholder="Tìm kiếm theo tên, số điện thoại, email" type="text" class="form-control">
+                            <input wire:model.debounce.1000ms="searchName" placeholder="Tìm kiếm theo số điện thoại, email" type="text" class="form-control">
                         </div>
                         <div class="col-4" >
                             <label class="col-form-label">Địa chỉ IP</label>
@@ -44,11 +44,9 @@
                 <thead>
                     <tr role='row'>
                         <th class='text-center w-60'>STT</th>
-                        <th>Họ và tên</th>
                         <th>Số điện thoại</th>
                         <th>Email</th>
-                        <th>Chức vụ</th>
-                        <th>Mã số thuế</th>
+                        <th>Câu hỏi</th>
                         <th>IP người dùng</th>
                         <th>Thời gian gửi</th>
                     </tr>
@@ -57,17 +55,15 @@
                     @forelse ($data as $key => $row)
                         <tr>
                             <td class='text-center'>{{($data->currentPage() - 1) * $data->perPage() + $loop->iteration}}</td>
-                            <td>{{$row->name}}</td>
                             <td>{{$row->phone}}</td>
                             <td>{{$row->email}}</td>
-                            <td>{{$row->position}}</td>
-                            <td>{{$row->tax_code}}</td>
+                            <td>{{$row->question}}</td>
                             <td>{{$row->IP}}</td>
                             <td>{{reFormatDate($row->created_at,'Y-m-d H:i:s')}}</td>
                         </tr>
                     @empty
                         <tr class="text-center text-danger">
-                            <td colspan="8">Không có bản ghi</td>
+                            <td colspan="6">Không có bản ghi</td>
                         </tr>
                     @endforelse
                 </tbody>

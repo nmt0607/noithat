@@ -1,20 +1,19 @@
 <?php
 
-namespace App\Http\Livewire\Admin\Advise;
+namespace App\Http\Livewire\Admin\QuestionCustomer;
 use App\Http\Livewire\Base\BaseLive;
-use App\Models\SignUpConsulation;
+use App\Models\QuestionOfCustomer as question;
 
-class AdviseList extends BaseLive
+class QuestionOfCustomer extends BaseLive
 {
     public $searchName;
     public $searchIp;
     public function render()
     {
-        $query = SignUpConsulation::query();
+        $query = question::query();
         if($this->searchName){
             $query = $query->where(function ($query) {
-                $query->where('name', 'like', '%'. $this->searchName .'%')
-                    ->orWhere('phone', 'like', '%'. $this->searchName .'%')
+                $query->where('phone', 'like', '%'. $this->searchName .'%')
                     ->orWhere('email', 'like', '%'. $this->searchName .'%');
             });
         }
@@ -23,7 +22,7 @@ class AdviseList extends BaseLive
         }
 
         $data = $query->orderBy('created_at', 'desc')->paginate($this->perPage);
-        return view('livewire.admin.advise.advise-list',[
+        return view('livewire.admin.question-customer.question-customer-list',[
             'data' => $data
         ]);
     }
