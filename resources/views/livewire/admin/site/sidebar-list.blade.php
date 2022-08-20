@@ -46,8 +46,14 @@
         </li>
         <li class="nav-item">
             <a href="{{route('admin.news.index')}}" class="nav-link {{setActive2('news')}}">
-                <i class="nav-icon far far fa-envelope nav-icon"></i>
+                <i class="nav-icon fas fa-envelope nav-icon"></i>
                 <p>Quản lý tin tức</p>
+            </a>
+        </li>
+        <li class="nav-item">
+            <a href="{{route('admin.advise.index')}}" class="nav-link {{setActive2('advise-list')}}">
+                <i class="nav-icon far fas fa-phone nav-icon"></i>
+                <p>Đăng ký tư vấn</p>
             </a>
         </li>
         <li class="nav-item">

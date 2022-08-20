@@ -59,5 +59,8 @@ Route::group(['middleware' => ['auth', 'route-permission']], function () {
         Route::get("/", "App\Http\Controllers\Admin\Test\FaqsController@index")->name("admin.faqs.index");
     });
 
+    // danh sách nhận tự vấn
+    Route::get("/advise-list", "App\Http\Controllers\Admin\Test\AdviseController@index")->name("admin.advise.index");
+
 });
 
