@@ -16,8 +16,8 @@ class CreateSignUpConsulationsTable extends Migration
         Schema::create('sign_up_consulations', function (Blueprint $table) {
             $table->id();
             $table->string('name')->comment('Họ và tên');
-            $table->string('email')->unique();
-            $table->string('phone')->unique();
+            $table->string('email');
+            $table->string('phone');
             $table->string('position');
             $table->string('tax_code');
             $table->string('IP');

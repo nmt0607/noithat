@@ -15,8 +15,8 @@ class CreateQuestionOfCustomersTable extends Migration
     {
         Schema::create('question_of_customers', function (Blueprint $table) {
             $table->id();
-            $table->string('email')->unique()->nullable();
-            $table->string('phone')->unique()->nullable();
+            $table->string('email')->nullable();
+            $table->string('phone')->nullable();
             $table->longText('question')->nullable();
             $table->string('IP')->nullable();
             $table->timestamps();

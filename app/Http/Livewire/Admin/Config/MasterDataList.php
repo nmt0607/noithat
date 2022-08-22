@@ -232,10 +232,9 @@ class MasterDataList extends BaseLive
             // dd($this->image);
             // $filePath = Storage::disk('s3')->storeAs('images', $this->image);
             // $filePath = Storage::disk('s3')->url($filePath);
-
             $filePath = $this->image->storeAs('uploads/' . $folder . '/files/' . auth()->id(), Str::random(20).time().'.'.$this->image->extension(), 's3');
-            dd(Storage::disk('s3')->temporaryUrl($filePath, now()->addMinutes(30)));
-            // $filePath = Storage::disk('s3')->url($filePath);
+            // dd(Storage::disk('s3')->temporaryUrl($filePath, now()->addMinutes(30)));
+            $filePath = Storage::disk('s3')->url($filePath);
             // dd(Storage::disk('s3')->get($filePath) );
             $this->saveFile($this->image, $master->id, $filePath, $model_name, $folder);
             $master->image = $filePath;
