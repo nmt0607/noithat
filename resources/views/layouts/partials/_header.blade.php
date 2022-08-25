@@ -54,7 +54,7 @@
       </div>
     </li> --}}
     <li class="nav-item" style='margin-right:-13px !important;'>
-      <img id='userImage' src="{{Auth()->user()->image?'/'.Auth()->user()->image:asset('images/users/user_dafault.jpg')}}"  class="img-circle" style="opacity: 1.0;width:35px;" />
+      <img id='userImage' src="{{asset('images/users/user_dafault.jpg')}}"  class="img-circle" style="opacity: 1.0;width:35px;" />
     </li>
     <li class="dropdown dropdown-user">
         <a class="nav-link dropdown-toggle link" data-toggle="dropdown">

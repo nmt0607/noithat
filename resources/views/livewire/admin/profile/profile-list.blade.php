@@ -50,7 +50,7 @@
                         @enderror
                     </div>
                 </div>  
-                <div class="row mt-2">
+                {{-- <div class="row mt-2">
                     <div class="col-2">
                         <label>Ảnh đại diện</label>
                         <br>
@@ -67,7 +67,7 @@
                     <div class='col-10'>
                         <img  style='border-radius:50%;' width='200px' class='mt-2 ml-1' src='{{$file?$file->temporaryUrl():($image?$image:asset("images/users/user_dafault.jpg"))}}'/>
                     </div>
-                </div>  
+                </div>   --}}
                 <div class="row mt-4">
                     <button type="button" class="btn btn-primary" wire:click='saveData'>
                         Lưu thay đổi 
@@ -186,9 +186,9 @@
                 placeholder: 'Chọn nhóm người dùng'
             });
         });
-        window.livewire.on('setData', (name,image) => {
+        window.livewire.on('setData', (name) => {
             $('#userName').text(name)
-            $('#userImage').attr("src",image);
+            // $('#userImage').attr("src",image);
         });
         $('#btn-change-password').click(function(){
             // alert('vào');

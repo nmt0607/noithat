@@ -184,10 +184,10 @@
                     <div class="mb-3">
                         <label>Chọn ảnh đại diện</label>
                         <div class="">
-                            <input type="file" name="image" id="choseFile" />
+                            <input type="file" name="image" id="choseFile"  accept="image/jpeg, image/png" />
                             <div class="preview-image mt-2">
                                 @if(isset($info) && $info->image)
-                                <img src="{{ '/'.$info['image'] }}" width="80px" />
+                                    <img src="{{ Storage::disk('s3')->url($info['image']) }}" width="80px" />
                                 @endif
                             </div>
                         </div>

@@ -10,6 +10,7 @@ use App\Models\News;
 use App\Models\File;
 use App\Helpers;
 use Illuminate\Support\Str;
+use Storage;
 class NewsController extends Controller{
 
     public function index(Request $request){
@@ -48,11 +49,10 @@ class NewsController extends Controller{
                     list($type, $data) = explode(';', $data);
                     list(, $data)      = explode(',', $data);
                     $data = base64_decode($data);
-                    $image_name= 'public/article-file-upload/' . time().mt_rand(1000000, 9999999).$k.'.png';
-                    $path = storage_path() .'/app/'. $image_name;
-                    file_put_contents($path, $data); 
+                    $file_path = 'WEB_IMAGE/uploads/article-file-upload/files/' . auth()->id().'/'.Str::random(20).time().$k.'.png';
+                    Storage::disk('s3')->put($file_path, $data);
                     $img->removeAttribute('src');
-                    $img->setAttribute('src', '/storage/'.$image_name);
+                    $img->setAttribute('src',Storage::disk('s3')->url($file_path));
                 }
             }
             $content_vi = $dom->saveHTML();
@@ -84,11 +84,10 @@ class NewsController extends Controller{
                     list($type, $data) = explode(';', $data);
                     list(, $data)      = explode(',', $data);
                     $data = base64_decode($data);
-                    $image_name= 'public/article-file-upload/' . time().mt_rand(1000000, 9999999).$k.'.png';
-                    $path = storage_path() .'/app/'. $image_name;
-                    file_put_contents($path, $data); 
+                    $file_path = 'WEB_IMAGE/uploads/article-file-upload/files/' . auth()->id().'/'.Str::random(20).time().$k.'.png';
+                    Storage::disk('s3')->put($file_path, $data);
                     $img->removeAttribute('src');
-                    $img->setAttribute('src', '/storage/'.$image_name);
+                    $img->setAttribute('src',Storage::disk('s3')->url($file_path));
                 }
             }
             $content_en = $dom->saveHTML();
@@ -131,7 +130,7 @@ class NewsController extends Controller{
         if($request->image){
             $model_name = News::class;
             $folder = app($model_name)->getTable();
-            $filePath = 'storage/'.$request->image->storeAs('uploads/' . $folder . '/files/' . auth()->id(), Str::random(20).time().'.'.$request->image->extension(), 'local');
+            $filePath = $request->image->storeAs('WEB_IMAGE/uploads/' . $folder . '/files/' . auth()->id(), Str::random(20).time().'.'.$request->image->extension(), 's3');
 
             $this->saveFile($request->image, $input->id, $filePath, $model_name, $folder);
 
@@ -196,11 +195,10 @@ class NewsController extends Controller{
                     list($type, $data) = explode(';', $data);
                     list(, $data)      = explode(',', $data);
                     $data = base64_decode($data);
-                    $image_name= 'public/article-file-upload/' . time().mt_rand(1000000, 9999999).$k.'.png';
-                    $path = storage_path() .'/app/'. $image_name;
-                    file_put_contents($path, $data); 
+                    $file_path = 'WEB_IMAGE/uploads/article-file-upload/files/' . auth()->id().'/'.Str::random(20).time().$k.'.png';
+                    Storage::disk('s3')->put($file_path, $data);
                     $img->removeAttribute('src');
-                    $img->setAttribute('src', '/storage/'.$image_name);
+                    $img->setAttribute('src',Storage::disk('s3')->url($file_path));
                 }
             }
 
@@ -234,11 +232,10 @@ class NewsController extends Controller{
                     list($type, $data) = explode(';', $data);
                     list(, $data)      = explode(',', $data);
                     $data = base64_decode($data);
-                    $image_name= 'public/article-file-upload/' . time().mt_rand(1000000, 9999999).$k.'.png';
-                    $path = storage_path() .'/app/'. $image_name;
-                    file_put_contents($path, $data); 
+                    $file_path = 'WEB_IMAGE/uploads/article-file-upload/files/' . auth()->id().'/'.Str::random(20).time().$k.'.png';
+                    Storage::disk('s3')->put($file_path, $data);
                     $img->removeAttribute('src');
-                    $img->setAttribute('src', '/storage/'.$image_name);
+                    $img->setAttribute('src',Storage::disk('s3')->url($file_path));
                 }
             }
             $content_en = $dom->saveHTML();
@@ -282,13 +279,13 @@ class NewsController extends Controller{
         $input = News::findOrFail($id);
         $input->update($data);
         if($request->image){
-            if($input->image&&file_exists('./'. $input->image)){
-                unlink('./'. $input->image);
+            if($input->image&&Storage::disk('s3')->exists($input->image)){
+                Storage::disk('s3')->delete($input->image);
                 File::where('model_id',$input->id)->where('model_name',News::class)->delete();
             }
             $model_name = News::class;
             $folder = app($model_name)->getTable();
-            $filePath = 'storage/'.$request->image->storeAs('uploads/' . $folder . '/files/' . auth()->id(), Str::random(20).time().'.'.$request->image->extension(), 'local');
+            $filePath =  $request->image->storeAs('WEB_IMAGE/uploads/' . $folder . '/files/' . auth()->id(), Str::random(20).time().'.'.$request->image->extension(), 's3');
             $this->saveFile($request->image, $input->id, $filePath, $model_name, $folder);
             $input->image = $filePath;
             $input->save();

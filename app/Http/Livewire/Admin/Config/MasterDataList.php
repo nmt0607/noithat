@@ -164,17 +164,13 @@ class MasterDataList extends BaseLive
     }
     public function delete()
     {
-       $data = MasterData::findOrFail($this->deleteId);
-        if($master->image && Storage::disk('s3')->exists($master->image)){
-            Storage::disk('s3')->delete($master->image);
-            File::where('model_id',$master->id)->where('model_name',MasterData::class)->delete();
-        }
-       if($data->image&&Storage::disk('s3')->exists($data->image)){
+        $data = MasterData::findOrFail($this->deleteId);
+        if($data->image&&Storage::disk('s3')->exists($data->image)){
             Storage::disk('s3')->delete($data->image);
             File::where('model_id',$data->id)->where('model_name',MasterData::class)->delete();
         }
         $data->delete();
-       $this->dispatchBrowserEvent('show-toast', ["type" => "success", "message" => __('notification.common.success.delete')] );
+        $this->dispatchBrowserEvent('show-toast', ["type" => "success", "message" => __('notification.common.success.delete')] );
     }
 
     public function edit($id)

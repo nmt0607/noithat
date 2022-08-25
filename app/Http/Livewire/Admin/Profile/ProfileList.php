@@ -66,18 +66,18 @@ class ProfileList extends BaseLive {
         $this->standardData();
         $this->validate();
         $user =  Auth()->User();
-        if($this->file&&$user->image&&file_exists('./'. $user->image)){
-            unlink('./'. $user->image);
-        }
+        // if($this->file&&$user->image&&file_exists('./'. $user->image)){
+        //     unlink('./'. $user->image);
+        // }
         $user->update([
             'name' => $this->name,
             'phone' => $this->phone,
             'email' => $this->email,
             'date' => $this->date,
             'sex' => $this->sex,
-            'image' =>  $this->file ? 'storage/'.$this->file ->store('uploads/profile/images') : $user->image,
+            // 'image' =>  $this->file ? 'storage/'.$this->file ->store('uploads/profile/images') : $user->image,
         ]);
-        $this->emit('setData',$user->name,$user->image); 
+        $this->emit('setData',$user->name); 
         $this->dispatchBrowserEvent('show-toast', ["type" => "success", "message" => 'Chỉnh sửa trang cá nhân thành công']);
     }  
     public function  standardData(){

@@ -80,7 +80,7 @@
                             <td>{{reFormatDate($row->date_submit)}}</td>
                             <td class='text-center'>
                                 @if($row['image'])
-                                    <img src="{{$row['image']}}" width="60px"/>
+                                    <img src="{{Storage::disk('s3')->url($row['image'])}}" alt="" width="70px" height="70px"/>
                                 @else 
                                     No image
                                 @endif

@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Admin\Site\Files;
 
 use App\Models\File;
+use App\Models\User;
 use Livewire\Component;
 
 class FileEdit extends Component
@@ -15,9 +16,12 @@ class FileEdit extends Component
             $this->note = $this->file->note ?? '';
         }
     }
-    public function render()
-    {
-        return view('livewire.admin.site.files.file-edit');
+    public function render(){
+        $user = User::find($this->file->admin_id);
+        $user_name = $user?$user->name:'';
+        return view('livewire.admin.site.files.file-edit',[
+            'user_name' => $user_name,
+        ]);
     }
     public function edit(){
         if ($this->file) {

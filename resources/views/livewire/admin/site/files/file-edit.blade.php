@@ -39,7 +39,7 @@
                 <div class="row mt-2">
                     <div class="col-5">
                         <label>Người đăng</label>
-                        <input class='form-control' placeholder='Người đăng' value="{{$file->admin_id}}" disabled>
+                        <input class='form-control' placeholder='Người đăng' value="{{$user_name}}" disabled>
                     </div>
                     <div class="offset-1 col-5">
                         <label>Ghi chú</label>

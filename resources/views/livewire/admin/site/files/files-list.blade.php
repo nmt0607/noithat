@@ -55,7 +55,7 @@
                             <td class='text-center'>{{($data->currentPage() - 1) * $data->perPage() + $loop->iteration}}</td>
                             <td>{{$row->model_id}}</td>
                             <td>{{$row->model_name}}</td>
-                            <td><a href="{{$row->url}}" target="_blank">{{$row->file_name}}</a></td>
+                            <td><a href="{{ Storage::disk('s3')->url($row->url)}}" target="_blank">{{$row->file_name}}</a></td>
                             <td>{{$row->size_file}}</td>
                             <td>{{$row->note}}</td>
                             <td>{{$row->user_name}}</td>
