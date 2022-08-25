@@ -87,7 +87,7 @@
                             <td>{!! boldTextSearch($row->note, $searchTerm) !!}</td>
                             <td>{{$row->order_number}}</td>
                             <td>{{$row->number_value}}</td>
-                            <td>
+                            <td class='text-center'>
                                 @if(!empty($row->image))
                                     <img src="{{Storage::disk('s3')->url($row->image)}}" alt="" width="70px" height="70px">
                                     @else

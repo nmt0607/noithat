@@ -130,7 +130,7 @@ class MasterDataList extends BaseLive
             $model_name = MasterData::class;
             $folder = app($model_name)->getTable();
             // $filePath = 'storage/'.$this->image->storeAs('uploads/' . $folder . '/files/' . auth()->id(), Str::random(20).time().'.'.$this->image->extension(), 'local');
-            $filePath = $this->image->storeAs('uploads/' . $folder . '/files/' . auth()->id(), Str::random(20).time().'.'.$this->image->extension(), 's3');
+            $filePath = $this->image->storeAs('WEB_IMAGE/uploads/' . $folder . '/files/' . auth()->id(), Str::random(20).time().'.'.$this->image->extension(), 's3');
 
             $this->saveFile($this->image, $master->id, $filePath, $model_name, $folder);
             $master->image = $filePath;
@@ -165,8 +165,12 @@ class MasterDataList extends BaseLive
     public function delete()
     {
        $data = MasterData::findOrFail($this->deleteId);
-       if($data->image&&file_exists('./'. $data->image)){
-            unlink('./'. $data->image);
+        if($master->image && Storage::disk('s3')->exists($master->image)){
+            Storage::disk('s3')->delete($master->image);
+            File::where('model_id',$master->id)->where('model_name',MasterData::class)->delete();
+        }
+       if($data->image&&Storage::disk('s3')->exists($data->image)){
+            Storage::disk('s3')->delete($data->image);
             File::where('model_id',$data->id)->where('model_name',MasterData::class)->delete();
         }
         $data->delete();
@@ -219,8 +223,8 @@ class MasterDataList extends BaseLive
         $master->url = $this->url;
         $master->number_value = ($this->number_value) ? $this->number_value : null;
         if(isset($this->change_image) && $this->change_image){
-            if($master->image && file_exists('./'. $master->image)){
-                unlink('./'. $master->image);
+            if($master->image && Storage::disk('s3')->exists($master->image)){
+                Storage::disk('s3')->delete($master->image);
                 File::where('model_id',$master->id)->where('model_name',MasterData::class)->delete();
             }
             $master->image = null;
@@ -232,9 +236,9 @@ class MasterDataList extends BaseLive
             // dd($this->image);
             // $filePath = Storage::disk('s3')->storeAs('images', $this->image);
             // $filePath = Storage::disk('s3')->url($filePath);
-            $filePath = $this->image->storeAs('uploads/' . $folder . '/files/' . auth()->id(), Str::random(20).time().'.'.$this->image->extension(), 's3');
+            $filePath = $this->image->storeAs('WEB_IMAGE/uploads/' . $folder . '/files/' . auth()->id(), Str::random(20).time().'.'.$this->image->extension(), 's3');
             // dd(Storage::disk('s3')->temporaryUrl($filePath, now()->addMinutes(30)));
-            $filePath = Storage::disk('s3')->url($filePath);
+            // $filePath = Storage::disk('s3')->url($filePath);
             // dd(Storage::disk('s3')->get($filePath) );
             $this->saveFile($this->image, $master->id, $filePath, $model_name, $folder);
             $master->image = $filePath;
