@@ -17,6 +17,7 @@ class EMasterData {
             2 => 'Brand',
             3 => 'Khách hàng nói gì về chúng tôi',
             4 => 'Kênh hỗ trợ',
+            5 => 'Slide home',
         ];
     }
 

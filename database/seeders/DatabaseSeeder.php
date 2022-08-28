@@ -18,10 +18,12 @@ class DatabaseSeeder extends Seeder
             CreateAdminSeeder::class,
             PermissionSeeder::class,
             FaqSeeder::class,
-            AboutUsSeeder::class,
-            BrandSeeder::class,
+            // AboutUsSeeder::class,
+            // BrandSeeder::class,
             CustomersSaySeeder::class,
             NewsSeeder::class,
+            ContactSeeder::class,
+            SlideHomeSeeder::class,
         ]);
     }
 }
