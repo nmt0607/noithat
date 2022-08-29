@@ -6,8 +6,8 @@ RUN composer install --ignore-platform-reqs
 #############################
 FROM php:7.4-fpm
 #CP resource PHP
-COPY --from=0 /app/php/local.ini /usr/local/etc/php/conf.d/local.ini
-COPY --from=0 /app /var/www
+COPY --from=0 --chown=1000 /app/php/local.ini /usr/local/etc/php/conf.d/local.ini
+COPY --from=0 --chown=1000 /app /var/www
 # Arguments defined in docker-compose.yml
 ENV user=www
 ENV uid=1000
@@ -35,7 +35,9 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 RUN useradd -G www-data,root -u $uid -d /home/$user $user
 RUN mkdir -p /home/$user/.composer && \
     chown -R $user:$user /home/$user
-
+RUN chown -R www:www-data /var/www/storage
+RUN chmod -R ug+w /var/www/storage
 # Set working directory
 WORKDIR /var/www
+
 USER $user
