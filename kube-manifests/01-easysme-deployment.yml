@@ -1,0 +1,21 @@
+apiVersion: apps/v1uat-els-easysme-be
+kind: Deployment 
+metadata:
+  name: uat-els-easysme-be-deployment
+  labels:
+    app: uat-els-easysme-be
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: uat-els-easysme-be
+  template:  
+    metadata:
+      labels: 
+        app: uat-els-easysme-be
+    spec:
+      containers:
+        - name: uat-els-easysme-be
+          image: CONTAINER_IMAGE
+          ports: 
+            - containerPort: 9000                
