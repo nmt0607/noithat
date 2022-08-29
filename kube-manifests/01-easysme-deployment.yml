@@ -1,4 +1,4 @@
-apiVersion: apps/v1uat-els-easysme-be
+apiVersion: apps/v1
 kind: Deployment 
 metadata:
   name: uat-els-easysme-be-deployment
