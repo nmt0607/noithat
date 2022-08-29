@@ -22,7 +22,7 @@ RUN apt-get update && apt-get install -y \
     zip \
     unzip
 
-# Clear cache
+# Clear cache !
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install PHP extensions
