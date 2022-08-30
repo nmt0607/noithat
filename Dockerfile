@@ -16,16 +16,24 @@ ENV uid=1000
 RUN apt-get update && apt-get install -y \
     git \
     curl \
+    libjpeg-dev \
+    libfreetype6-dev \
+    libjpeg62-turbo-dev \
+    libmcrypt-dev \
+    libgd-dev \
+    jpegoptim optipng pngquant gifsicle \
     libpng-dev \
     libonig-dev \
     libxml2-dev \
     zip \
+    npm \
     unzip
 
 # Clear cache !
 RUN apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # Install PHP extensions
+RUN docker-php-ext-configure gd --enable-gd --with-freetype --with-jpeg
 RUN docker-php-ext-install pdo_mysql mbstring exif pcntl bcmath gd
 
 # Get latest Composer
@@ -36,6 +44,7 @@ RUN useradd -G www-data,root -u $uid -d /home/$user $user
 RUN mkdir -p /home/$user/.composer && \
     chown -R $user:$user /home/$user
 RUN chown -R www:www-data /var/www/storage
+
 RUN chmod -R ug+w /var/www/storage
 # Set working directory
 WORKDIR /var/www
