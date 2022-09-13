@@ -28,6 +28,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        if ($this->app->isLocal()) {
+        } else {
+            $this->app['request']->server->set('HTTPS', true);
+        }
+
         Validator::extend('confirmPassword', function($attribute, $value, $parameters, $validator) {
             if(Hash::check($value,Auth()->User()->password)){
                 return true;
