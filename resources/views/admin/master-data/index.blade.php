@@ -1,10 +1,10 @@
 @extends('layouts.master')
 @section('title')
-    <title>Quản lý tin tức</title>
+    <title>Cấu hình chung</title>
 @endsection
 @section('css')
     <link href="{{ asset('css/datatables.min.css') }}" rel="stylesheet" />
 @endsection
 @section('content')
-    @livewire('admin.news.news-list')
+    @livewire('admin.master-data-list')
 @endsection

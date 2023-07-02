@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Livewire\Admin\News;
+namespace App\Http\Livewire\Admin;
 use App\Http\Livewire\Base\BaseLive;
 use App\Models\News;
 use App\Models\File;
@@ -14,13 +14,7 @@ class NewsList extends BaseLive
         $query = News::query();
         if($this->searchName){
             $query = $query->where(function ($query) {
-                $query->where('name_vi', 'like', '%'. $this->searchName .'%')
-                    ->orWhere('name_en', 'like', '%'. $this->searchName .'%')
-                    ->orWhere('intro_vi', 'like', '%'. $this->searchName .'%')
-                    ->orWhere('intro_en', 'like', '%'. $this->searchName .'%')
-                    ->orWhere('content_vi', 'like', '%'. $this->searchName .'%')
-                    ->orWhere('content_en', 'like', '%'. $this->searchName .'%')
-                    ->orWhere('author','like', '%'. $this->searchName .'%');
+                $query->where('title', 'like', '%'. $this->searchName .'%');
             });
         }
         if($this->searchCategory){
@@ -28,7 +22,7 @@ class NewsList extends BaseLive
         }
 
         $newData = $query->orderBy('created_at', 'desc')->paginate($this->perPage);
-        return view('livewire.admin.news.news-list', compact('newData'));
+        return view('livewire.admin.news-list', compact('newData'));
     }
 
     public function resetSearch(){

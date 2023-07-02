@@ -60,13 +60,10 @@
         <a class="nav-link dropdown-toggle link" data-toggle="dropdown">
         <span id='userName'>{{Auth()->user()->name??''}}</span></a>
         <ul class="dropdown-menu dropdown-menu-right">
-            <a class="dropdown-item" href="{{ route('admin.profile.index') }}" style='font-size:14px; color:#6D7C85'><i class="fa fa-user mr-2"></i>Trang cá nhân</a>
-            {{--<a class="dropdown-item" href="{{ route('support') }}"><i class="fa fa-support"></i>Hỗ trợ</a> --}}
-            <li class="dropdown-divider"></li>
             <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
               @csrf
             </form>
-            <a class="dropdown-item" style='font-size:14px; color:#6D7C85' href='javascript:void(0);' id='logout'><i class="fa fa-power-off mr-2" ></i>Đăng xuất</a>
+            <a class="dropdown-item" style='font-size:14px; color:#6D7C85' href='' id='logout'><i class="fa fa-power-off mr-2" ></i>Đăng xuất</a>
         </ul>
     </li>
   </ul>

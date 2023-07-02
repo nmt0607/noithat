@@ -2,13 +2,13 @@
     <div class="p-2 pb-3 d-flex align-items-center justify-content-between">
         <div class="">
             <h4 class="m-0 ml-2">
-                Thêm mới bài viết
+                Chỉnh sửa bài viết
             </h4>
         </div>
     </div>
 
     <!-- Title -->
-    {{ Form::open(['url' => route('admin.news.store'), 'method' => 'POST', 'enctype' => 'multipart/form-data', 'name'=>'news_form']) }}
+    {{ Form::open(['url' => route('admin.news.update', $editId), 'method' => 'PUT', 'enctype' => 'multipart/form-data', 'name'=>'news_form']) }}
     @csrf
     <div class="card">
         <div class="card-body p-2">
@@ -184,10 +184,10 @@
                     <div class="mb-3">
                         <label>Chọn ảnh đại diện</label>
                         <div class="">
-                            <input type="file" name="image" id="choseFile" accept="image/jpeg, image/png"/>
+                            <input type="file" name="image" id="choseFile"  accept="image/jpeg, image/png" />
                             <div class="preview-image mt-2">
                                 @if(isset($info) && $info->image)
-                                <img src="{{ $info['image'] }}" width="80px" />
+                                    <img src="" width="80px" />
                                 @endif
                             </div>
                         </div>

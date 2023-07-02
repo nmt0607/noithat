@@ -20,49 +20,31 @@ use Illuminate\Support\Facades\Route;
 
 
 Auth::routes();
-Route::get('/', ['middleware' => 'guest', function()
+Route::get('/admin', ['middleware' => 'guest', function()
 {
     return view('auth.login');
 }]);
+Route::get("/", "App\Http\Controllers\Client\ClientController@index")->name("client.home");
+Route::get("/product", "App\Http\Controllers\Client\ClientController@product")->name("client.product");
+Route::get("/product/{id}", "App\Http\Controllers\Client\ClientController@productDetail")->name("client.product_detail");
+Route::get("/news", "App\Http\Controllers\Client\ClientController@news")->name("client.news");
+Route::get("/news/{id}", "App\Http\Controllers\Client\ClientController@newsDetail")->name("client.news_detail");
+
 Route::group(['middleware' => ['auth', 'route-permission']], function () {
-
-    Route::prefix('user')->group(function (){
-        Route::get('/', 'App\Http\Controllers\Admin\Test\UserController@index')->name('admin.user.index');
+   
+    Route::group(['prefix' => 'admin'], function() {
+        Route::get("/home", "App\Http\Controllers\Admin\Site\HomeController@index")->name("home");
+        Route::get("/product-type", "App\Http\Controllers\Admin\AdminController@productType")->name("admin.product-type");
+        Route::get("/product", "App\Http\Controllers\Admin\AdminController@product")->name("admin.product");
+        Route::get("/product/create", "App\Http\Controllers\Admin\AdminController@productCreate")->name("admin.product.create");
+        Route::get("/product/{id}", "App\Http\Controllers\Admin\AdminController@productEdit")->name("admin.product.edit");
+        Route::get("/news", "App\Http\Controllers\Admin\AdminController@news")->name("admin.news.index");
+        Route::get("/news/create", "App\Http\Controllers\Admin\AdminController@newsCreate")->name("admin.news.create");
+        Route::post("/news/store", "App\Http\Controllers\Admin\AdminController@newsStore")->name("admin.news.store");
+        Route::get("/news/{id}", "App\Http\Controllers\Admin\AdminController@newsEdit")->name("admin.news.edit");
+        Route::put("/news/{id}", "App\Http\Controllers\Admin\AdminController@newsUpdate")->name("admin.news.update");
+        Route::get("/master-data", "App\Http\Controllers\Admin\AdminController@masterData")->name("admin.master-data");
     });
-    Route::group(['prefix' => 'profile'], function() {
-        Route::get("/", "App\Http\Controllers\Admin\Test\ProfileController@index")->name("admin.profile.index");
-    });
-    Route::group(['prefix' => 'files'], function() {
-        Route::get('/', 'App\Http\Controllers\Admin\Site\FilesController@index')->name('admin.files.index');
-        Route::get('/edit/{id}', 'App\Http\Controllers\Admin\Site\FilesController@edit')->name('admin.files.edit');
-    });
-    Route::group(['prefix' => 'profile'], function() {
-        Route::get("/", "App\Http\Controllers\Admin\Test\ProfileController@index")->name("admin.profile.index");
-    });
-    Route::get('/home', [App\Http\Controllers\Admin\Site\HomeController::class, 'index'])->name('home');
-
-    Route::group(['prefix' => 'config'], function() {
-        Route::get("/master-data", "App\Http\Controllers\Admin\Test\ConfigController@masterData")->name("admin.config.masterData");
-        Route::get('/seo-config', 'App\Http\Controllers\Admin\Test\SEOConfigController@index')->name('admin.config.seoConfig');
-        // Route::get('/site-config', 'App\Http\Controllers\Admin\Test\SiteConfigController@index')->name('admin.config.siteConfig');
-    });
-
-    Route::group(['prefix' => 'news'], function() {
-        Route::get("/", "App\Http\Controllers\Admin\Test\NewsController@index")->name("admin.news.index");
-        Route::get("/create", "App\Http\Controllers\Admin\Test\NewsController@create")->name("admin.news.create");
-        Route::post("/store", "App\Http\Controllers\Admin\Test\NewsController@store")->name("admin.news.store");
-        Route::get("/{id}/edit", "App\Http\Controllers\Admin\Test\NewsController@edit")->name("admin.news.edit");
-        Route::put("/{id}", "App\Http\Controllers\Admin\Test\NewsController@update")->name("admin.news.update");
-    });
-
-    Route::group(['prefix' => 'faqs'], function() {
-        Route::get("/", "App\Http\Controllers\Admin\Test\FaqsController@index")->name("admin.faqs.index");
-    });
-
-    // danh sách nhận tự vấn
-    Route::get("/advise-list", "App\Http\Controllers\Admin\Test\AdviseController@index")->name("admin.advise.index");
-    // câu hỏi khách hàng
-    Route::get("/question-of-customer", "App\Http\Controllers\Admin\Test\QuestionOfCustomerController@index")->name("admin.question-of-customer.index");
 
 });
 

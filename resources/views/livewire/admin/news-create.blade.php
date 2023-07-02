@@ -2,13 +2,13 @@
     <div class="p-2 pb-3 d-flex align-items-center justify-content-between">
         <div class="">
             <h4 class="m-0 ml-2">
-                Chỉnh sửa bài viết
+                Thêm mới sản phẩm
             </h4>
         </div>
     </div>
 
     <!-- Title -->
-    {{ Form::open(['url' => route('admin.news.update', $editId), 'method' => 'PUT', 'enctype' => 'multipart/form-data', 'name'=>'news_form']) }}
+    {{ Form::open(['url' => route('admin.news.store'), 'method' => 'POST', 'enctype' => 'multipart/form-data', 'name'=>'news_form']) }}
     @csrf
     <div class="card">
         <div class="card-body p-2">
@@ -25,27 +25,9 @@
                 <div class="row">
                     <div class="col mb-3">
                         <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text text-xs" id="nameViPrepend">
-                                    vi
-                                </span>
-                            </div>
                             <input value="{{ isset($info) ? $info->name_vi : null }}" type="text" class="@error('name_vi') is-invalid @enderror form-control-sm form-control custom-input-control" id="name_vi" placeholder="Nhập tiêu đề" aria-describedby="nameViPrepend" name="name_vi">
                         </div>
                         @error('name_vi')
-                        @include('layouts.partials.text._error')
-                        @enderror
-                    </div>
-                    <div class="col mb-3">
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text text-xs" id="nameEnPrepend">
-                                    en
-                                </span>
-                            </div>
-                            <input value="{{ isset($info) ? $info->name_en : null }}" type="text" class="@error('name_en') is-invalid @enderror form-control-sm form-control custom-input-control" id="name_en" placeholder="Nhập tiêu đề" aria-describedby="nameEnPrepend" name="name_en">
-                        </div>
-                        @error('name_en')
                         @include('layouts.partials.text._error')
                         @enderror
                     </div>
@@ -184,10 +166,10 @@
                     <div class="mb-3">
                         <label>Chọn ảnh đại diện</label>
                         <div class="">
-                            <input type="file" name="image" id="choseFile"  accept="image/jpeg, image/png" />
+                            <input type="file" name="image" id="choseFile" accept="image/jpeg, image/png"/>
                             <div class="preview-image mt-2">
                                 @if(isset($info) && $info->image)
-                                    <img src="{{ Storage::disk('s3')->url($info['image']) }}" width="80px" />
+                                <img src="{{ $info['image'] }}" width="80px" />
                                 @endif
                             </div>
                         </div>

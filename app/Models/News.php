@@ -4,35 +4,34 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+
 class News extends Model
 {
     use HasFactory;
+
     protected $fillable = [
-        'name_vi',
-        'name_en',
-        'intro_vi',
-        'intro_en',
-        'content_vi',
-        'content_en',
-        'meta_title_vi',
-        'meta_title_en',
-        'meta_des_vi',
-        'meta_des_en',
-        'image',
-        'status',
-        'type', // 1: Không trong danh mục, 2: có trong danh mục
-        'category',
-        'date_submit',
-        'author'
+        "title",
+        "content",
+        "category",
+        "type",
+        "image",
+        "intro",
     ];
 
-    protected $status = ["Chưa kích hoạt", "Đang hoạt động"];
-
-    public static function rules() {
-        return [
-            'name_vi' => 'required|max:255',
-            'intro_vi' => 'required',
-            'image' => 'mimes:jpeg,jpg,png'
-        ];
+    public function categoryName(){
+        if($this->category == 1)
+            return "Kiến thức nhà đẹp";
+        elseif($this->category == 2)
+            return "Kiến thức tổng hợp";
+            
     }
+
+    public function typeName(){
+        if($this->type == 1)
+            return "Tin thường";
+        elseif($this->type == 2)
+            return "Tin nổi bật";
+            
+    }
+
 }

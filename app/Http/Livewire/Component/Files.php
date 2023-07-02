@@ -63,12 +63,13 @@ class Files extends BaseLive
 
     public function mount()
     {
+
         if (empty($this->acceptMimeTypes)) {
             $this->acceptMimeTypes = config('common.mime_type.general', []);
         }
 
         if (empty($this->name)) {
-            $this->name = 'Đính kèm file';
+            $this->name = 'Thêm hình ảnh';
         }
 
         if($this->deleteUnknownFilesOnMount) {
@@ -83,7 +84,7 @@ class Files extends BaseLive
 
     public function render()
     {
-
+        // dd($this->model_id);
         $this->files = File::query()
             ->where('model_name', $this->model_name)
             ->where('type', $this->type)
@@ -99,12 +100,9 @@ class Files extends BaseLive
 
     public function updatedFile()
     {
-
         $this->validate();
-
         $originalName = $this->file->getClientOriginalName();
         $filePath = $this->file->storeAs('uploads/' . $this->folder . '/files/' . auth()->id(), $this->file->getFilename(), 'local');
-
         $fileUpload = new File();
         $fileUpload->url = $filePath;
         $fileUpload->size_file = $this->getFileSize($this->file);

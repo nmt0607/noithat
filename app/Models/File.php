@@ -12,4 +12,9 @@ class File extends Model
     use HasFactory;
     protected $table='files';
     protected $fillable=['url','file_name','model_name','size_file','model_id','type', 'admin_id','note','file_name_en','note_en'];
+
+    public function getPathAttribute()
+    {
+        return ('storage/'.$this->attributes['url']);
+    }
 }

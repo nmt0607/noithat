@@ -89,7 +89,7 @@
                             <td>{{$row->number_value}}</td>
                             <td class='text-center'>
                                 @if(!empty($row->image))
-                                    <img src="{{Storage::disk('s3')->url($row->image)}}" alt="" width="70px" height="70px">
+                                    <img src="" alt="" width="70px" height="70px">
                                     @else
                                         No image
                                     @endif
